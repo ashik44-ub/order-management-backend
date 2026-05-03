@@ -86,4 +86,16 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
+// Fallback for unhandled routes
+app.use((req, res) => {
+  console.log(`Unhandled route: ${req.method} ${req.url}`);
+  res.status(404).json({
+    error: 'Route not found in Express',
+    method: req.method,
+    url: req.url,
+    path: req.path
+  });
+});
+
 module.exports = app;
+
